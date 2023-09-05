@@ -1,0 +1,79 @@
+import React from 'react'
+import type { MouseEvent } from 'react' // ts 类型
+import logo from './logo.svg'
+import './App.css'
+
+function App() {
+  const fn = (event: MouseEvent<HTMLButtonElement>, name: string) => {
+    event.preventDefault() // 阻止默认行为
+    // event.stopPropagation() // 阻止冒泡
+
+    console.log('clicked...', name)
+  }
+
+  const style = { color: 'red', backgroundColor: 'white' }
+
+  const flag = true
+
+  function Hello() {
+    if (flag) return <p>hello1</p>
+    return <p>你好1</p>
+  }
+
+  // username 不能重复
+  const list = [
+    { username: 'shuangyue', name: '双越' },
+    { username: 'zhangsan', name: '张三' },
+    { username: 'lisi', name: '李四' },
+  ]
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
+        {/* <p>{logo}</p> */}
+        {/* JSX 注释内容 */}
+
+        {/* 不要用 index 做为 key */}
+        <ul>
+          {list.map(user => {
+            const { username, name } = user
+            return <li key={username}>{name}</li>
+          })}
+        </ul>
+
+        <div>
+          {flag && <p>Hello</p>}
+          {flag ? <p>hello</p> : <p>你好</p>}
+          <Hello></Hello> {/* 标签，首字母大写，自定义组件（标签） */}
+        </div>
+
+        <p>
+          Edit <code>src/App.tsx</code> and save to reload.
+        </p>
+
+        <div>
+          <button
+            onClick={event => {
+              fn(event, '双越') // 调用
+            }}
+          >
+            click
+          </button>
+        </div>
+
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={style}
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  )
+}
+
+export default App
